@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="fxlib">
+    <output-path>$USER_HOME$/Desktop/Depenced</output-path>
+    <root id="archive" name="fxlib.jar">
+      <element id="module-output" name="fxlib" />
+    </root>
+  </artifact>
+</component>
