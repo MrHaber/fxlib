@@ -60,7 +60,7 @@ public class ControllerWrapper {
     }
 
     /**
-     * @return Хеш.
+     * @return Коллекция контролера.
      */
 
     public static LinkedHashMap<Integer, ControllerQueue> map() {
