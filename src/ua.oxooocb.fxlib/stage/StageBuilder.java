@@ -1,5 +1,6 @@
 package ua.oxooocb.fxlib.stage;
 
+import javafx.application.Platform;
 import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.*;
@@ -8,6 +9,7 @@ import javafx.scene.paint.*;
 import javafx.stage.*;
 import java.io.*;
 import ua.oxooocb.fxlib.controller.ControllerQueue;
+import ua.oxooocb.fxlib.controller.ControllerWrapper;
 
 public class StageBuilder {
 
@@ -19,14 +21,11 @@ public class StageBuilder {
 
     /**
      * Конструктор.
-     *
-     * @param cell Ячейка в хеше.
      */
 
-    public StageBuilder(Integer cell) {
+    public StageBuilder() {
         this.screen = Screen.getPrimary().getVisualBounds();
         this.stageBuilder = this;
-        this.stage = StageWrapper.get(cell);
     }
 
     /**
@@ -50,7 +49,14 @@ public class StageBuilder {
     public StageBuilder create(FXMLLoader fxmlLoader) throws Exception {
         //Загружаем текстуру.
         this.parent = fxmlLoader.load();
-        this.controller = (ControllerQueue) fxmlLoader.getController();
+        //Инициализируем контроллер.
+        this.controller = fxmlLoader.getController();
+        //Добавляем приложение.
+        StageWrapper.put(controller.getCell());
+        //Добавляем контроллер.
+        ControllerWrapper.put(controller.getCell(), controller);
+        //Ставим приложение.
+        this.stage = StageWrapper.get(controller.getCell());
         //Ставим сцену.
         stage.setScene(new Scene(parent));
         //Ставим контроллер.
@@ -151,6 +157,10 @@ public class StageBuilder {
     public void build() {
         stage.setX((screen.getWidth() - stage.getWidth()) / 2);
         stage.setY((screen.getHeight() - stage.getHeight()) / 2);
+        Platform.runLater(() -> {
+            stage.show();
+            stage.requestFocus();
+        });
     }
 
 

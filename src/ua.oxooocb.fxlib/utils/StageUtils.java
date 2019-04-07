@@ -12,7 +12,6 @@ public class StageUtils {
     /**
      * Создать приложение с кастомным контроллером.
      *
-     * @param next Ячейка в хеше.
      * @param fxmlLoader Загрузчик приложения.
      * @param title Титл.
      * @param width Ширина.
@@ -22,13 +21,12 @@ public class StageUtils {
      * @param runnable Кастомная загрузка контроллера.
      */
 
-    public static void createApplication(int next, FXMLLoader fxmlLoader, String title, double width, double height, String css, InputStream icon, Runnable runnable) {
+    public static void createApplication(FXMLLoader fxmlLoader, String title, double width, double height, String css, InputStream icon, Runnable runnable) {
         //Запускаем от прав платформы.
         Platform.runLater(() -> {
             //Исключение.
             try {
-                //Указываем ячейку.
-                new StageBuilder(next).
+                new StageBuilder().
                         //Создаем приложение.
                                 create(fxmlLoader).
                         //Ставим титл.
@@ -52,7 +50,6 @@ public class StageUtils {
     /**
      * Создать приложение с кастомным контроллером.
      *
-     * @param next Ячейка в хеше.
      * @param fxmlLoader Загрузчик приложения.
      * @param title Титл.
      * @param width Ширина.
@@ -62,13 +59,12 @@ public class StageUtils {
      * @param registerController Зарегистрировать ли контроллер.
      */
 
-    public static void createApplication(int next, FXMLLoader fxmlLoader, String title, double width, double height, String css, InputStream icon, boolean registerController) {
+    public static void createApplication(FXMLLoader fxmlLoader, String title, double width, double height, String css, InputStream icon, boolean registerController) {
         //Запускаем от прав платформы.
         Platform.runLater(() -> {
             //Исключение.
             try {
-                //Указываем ячейку.
-                new StageBuilder(next).
+                new StageBuilder().
                         //Создаем приложение.
                                 create(fxmlLoader).
                         //Ставим титл.
@@ -82,7 +78,7 @@ public class StageUtils {
                         //Загружаем стиль.
                                 initStyle().
                         //Загружаем контроллер и билдим.
-                                registerController(registerController);
+                                registerController(registerController).build();
             } catch (Exception e) {
                 e.printStackTrace();
             }
